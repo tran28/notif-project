@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-notifproject-dev-201555-authRole",
+      "UnauthRoleArn": "arn:aws:iam::058264548452:role/amplify-notifproject-dev-201555-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::058264548452:role/amplify-notifproject-dev-201555-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-notifproject-dev-201555-deployment",
+      "UnauthRoleName": "amplify-notifproject-dev-201555-unauthRole",
+      "StackName": "amplify-notifproject-dev-201555",
+      "StackId": "arn:aws:cloudformation:us-east-1:058264548452:stack/amplify-notifproject-dev-201555/73dfe490-c09f-11ee-9a42-0a8b4e30dca9",
+      "AmplifyAppId": "ddoawm1c2fgwr"
+    }
+  }
+}
