@@ -23,7 +23,6 @@ function ProductForm({ onProductUpdate }) {
 
     const handleInputChange = (event) => {
         const { name, value, type } = event.target;
-        setPriceErrorAlert(false);
 
         // Update product state
         const updatedProduct = { ...product, [name]: value };
@@ -34,6 +33,9 @@ function ProductForm({ onProductUpdate }) {
             const numericValue = parseFloat(value);
             if (numericValue <= 0) {
                 setPriceErrorAlert(true);
+            }
+            else {
+                setPriceErrorAlert(false);
             }
         }
     };
