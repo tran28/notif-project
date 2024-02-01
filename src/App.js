@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { post, get } from 'aws-amplify/api';
-import { TextField, Button, Flex, Card, Label, Table, TableHead, TableRow, TableCell, TableBody } from '@aws-amplify/ui-react';
+import axios from 'axios';
+import { TextField, Button, Flex, Card, Label, Table, TableHead, TableRow, TableCell, TableBody, Alert } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import ProductsTable from './components/ProductsTable';
 
 function App() {
   const [product, setProduct] = useState({
-    id: '',
+    product_id: '',
     name: '',
     merchant: '',
     price: '',
     url: '',
   });
 
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -21,38 +24,74 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // try {
-    //   const response = await post('serverless-api', '/product', { body: product });
-    //   console.log('Post successful!', response);
-    //   fetchProducts();
-    // } catch (error) {
-    //   console.error('Error posting data:', error);
-    // }
+    // Create a new object with trimmed fields
+    const product_trimmed = Object.keys(product).reduce((acc, key) => {
+      acc[key] = product[key].trim();
+      return acc;
+    }, {});
+
+    try {
+      const response = await axios.post('https://76y03qxeo7.execute-api.us-east-1.amazonaws.com/production/product', product_trimmed);
+      console.log('Post successful!', response);
+      fetchProducts();
+      setShowAlert(true);
+
+      // Reset the product state to its initial state
+      setProduct({
+        product_id: '',
+        name: '',
+        merchant: '',
+        price: '',
+        url: '',
+      });
+      setTimeout(() => setShowAlert(false), 5000);
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }
   };
 
-  // const fetchProducts = async () => {
-  //   try {
-  //     const response = await get('serverless-api', '/products');
-  //     setProducts(response);
-  //   } catch (error) {
-  //     console.error('Error fetching products:', error);
-  //   }
-  // };
+  const handleDelete = async (productId) => {
+    try {
+      const url = 'https://76y03qxeo7.execute-api.us-east-1.amazonaws.com/production/product';
+      const body = { product_id: productId };
+      await axios.delete(url, { data: body });
+      console.log('Delete successful!');
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('https://76y03qxeo7.execute-api.us-east-1.amazonaws.com/production/products');
+      setProducts(response.data.products); // Make sure to use response.data to get the actual data
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>
+      {showAlert && (
+        <Alert variation="success" isDismissible={true} onDismiss={() => setShowAlert(false)}>
+          Product added successfully!
+        </Alert>
+      )}
+
       <Card variation="elevated">
         <Flex
           direction="row"
-          justifyContent="space-around"
+          justifyContent="center"
           alignItems="center"
           alignContent="flex-start"
           wrap="nowrap"
-          gap="1rem">
+          gap="5rem">
           <Flex>
             <Label style={{ fontSize: '20px' }}>Add a New Product</Label>
           </Flex>
@@ -64,7 +103,7 @@ function App() {
             alignContent="flex-start"
             wrap="nowrap"
             gap="1rem">
-            <TextField name="id" placeholder="ID" value={product.id} onChange={handleInputChange} />
+            <TextField name="product_id" placeholder="ID" value={product.product_id} onChange={handleInputChange} />
             <TextField name="name" placeholder="Name" value={product.name} onChange={handleInputChange} />
             <TextField name="merchant" placeholder="Merchant" value={product.merchant} onChange={handleInputChange} />
             <TextField name="price" placeholder="Price" type="number" value={product.price} onChange={handleInputChange} />
@@ -75,55 +114,8 @@ function App() {
         </Flex>
       </Card>
 
-      <Card>
-        <Flex
-          direction="column"
-          alignItems="flex-start"
-          wrap="nowrap"
-          gap="1rem">
-          <Flex>
-            <Label style={{ fontSize: '20px' }}>All Products</Label>
-          </Flex>
-
-
-          <Table
-            highlightOnHover={false}
-            size="small"
-            variation="striped">
-            <TableHead>
-              <TableRow>
-                <TableCell as="th">Product ID</TableCell>
-                <TableCell as="th">Product Name</TableCell>
-                <TableCell as="th">Merchant</TableCell>
-                <TableCell as="th">Price</TableCell>
-                <TableCell as="th">URL</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>1</TableCell>
-                <TableCell>Rare Beauty Lip Tint</TableCell>
-                <TableCell>Sephora</TableCell>
-                <TableCell>$26.95</TableCell>
-                <TableCell>url.com/rb1</TableCell>
-              </TableRow>
-              <TableRow>
-              <TableCell>2</TableCell>
-                <TableCell>Nail Polish</TableCell>
-                <TableCell>Chanel</TableCell>
-                <TableCell>$45.00</TableCell>
-                <TableCell>url.com/ch2</TableCell>
-              </TableRow>
-              <TableRow>
-              <TableCell>3</TableCell>
-                <TableCell>Dove Deodorant</TableCell>
-                <TableCell>Shopper's Drug Mart</TableCell>
-                <TableCell>$4.99</TableCell>
-                <TableCell>url.com/sdm3</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Flex>
+      <Card variation="elevated" style={{ marginTop: '1rem' }}>
+        <ProductsTable label={"All products"} products={products} handleDelete={handleDelete} />
       </Card>
     </>
   );
