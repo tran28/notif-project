@@ -1,27 +1,27 @@
 import { useNavigate } from "react-router-dom";
+import { createClickHandler } from "../utils/createClickHandler";
+import Button from "../components/Button";
 
 function HomePage() {
     const navigate = useNavigate();
 
-    const handleClick = (to) => () => {
-        switch (to) {
-            case 'auth':
-                navigate('/auth');
-                break;
-            case 'dynamo':
-                navigate('/dynamo');
-                break;
-            default:
-                navigate('/notfound');
-        }
+    const actionMap = {
+        'auth': () => {
+            navigate('/auth');
+        },
+        'dynamo': () => {
+            navigate('/dynamo');
+        },
     };
+
+    const handleClick = createClickHandler(actionMap);
 
     return (
         <div className="flex flex-col gap-5">
             <h1>Home Page</h1>
             {/* Update onClick to pass a function that will be called on click */}
-            <button onClick={handleClick('auth')} className="p-3 bg-accent-gray hover:bg-accent-dark hover:text-accent-aman">Go to Login/Register</button>
-            <button onClick={handleClick('dynamo')} className="p-3 bg-accent-gray hover:bg-accent-dark hover:text-accent-aman">Go to Dynamo Visual</button>
+            <Button onClick={() => handleClick('auth')}>Go to Login/Register</Button>
+            <Button onClick={() => handleClick('dynamo')} >Go to Dynamo Visual</Button>
         </div>
     );
 }

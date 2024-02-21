@@ -4,67 +4,61 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { loginValidationRules, registerValidationRules } from "../utils/validationRules";
 import useFormValidation from "../hooks/useFormValidation";
-import FormInput from "./FormInput";
+import { createClickHandler } from "../../../utils/createClickHandler";
+import AuthForm from "./AuthForm";
+
+const initialFormData = {
+    email: '',
+    password: '',
+};
 
 function Login({ className }) {
-    // Redux states
+    // ================================================
+    // ** States and Hooks **
+    // ================================================
     const login_selected = useSelector(state => state.auth_selection.login_selected);
     const register_selected = useSelector(state => state.auth_selection.register_selected);
     const dispatch = useDispatch();
-
-    // useNavigate for navigating between routes
     const navigate = useNavigate();
-
-    // useState for form fields
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
-
-    // Custom hook to validate form submission
+    const [formData, setFormData] = useState(initialFormData);
     const { validate, errors, resetErrors } = useFormValidation(() => login_selected ? loginValidationRules : registerValidationRules);
 
-    // Handle form changes
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
-
-    // Handle form submit
+    // ================================================
+    // ** Handlers **
+    // ================================================
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // validate the form to ensure all fields are correctly entered
         if (validate(formData)) {
-            if(login_selected) {
+            if (login_selected) {
 
             }
             else {
+                // successful registration
                 navigate("/dashboard");
             }
-        } else {
-            console.log("Error with register or no login found.");
         }
     };
 
-    // Reset form state and errors
-    const resetFormAndErrors = () => {
-        setFormData({
-            email: '',
-            password: '',
-        });
-        resetErrors(); // Reset errors function from useFormValidation hook
-    };
-
-    // Handle login or register click
-    const handleAuthClick = (actionType) => {
-        if (actionType === 'login') {
+    const actionMap = {
+        'login': () => {
             dispatch(selectLogin());
-        } else if (actionType === 'register') {
+            resetFormAndErrors();
+        },
+        'register': () => {
             dispatch(selectRegister());
-        }
-        resetFormAndErrors();
+            resetFormAndErrors();
+        },
+    };
+    const handleAuthClick = createClickHandler(actionMap);
+
+    // ================================================
+    // ** Helpers **
+    // ================================================
+    const resetFormAndErrors = () => {
+        setFormData(initialFormData);
+        resetErrors();
     };
 
     return (
@@ -75,27 +69,13 @@ function Login({ className }) {
                 <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('register')}>register</div>
             </div>
             <div className='border-2 px-4 py-10 border-accent-gray sm:px-8 md:px-10'>
-                <form onSubmit={handleSubmit} noValidate>
-                    <FormInput
-                        label="Email"
-                        type="email"
-                        name="email"
-                        placeholder="name@example.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                        error={errors.email}
-                    />
-                    <FormInput
-                        label="Password"
-                        type="password"
-                        name="password"
-                        placeholder="••••••••"
-                        value={formData.password}
-                        onChange={handleChange}
-                        error={errors.password}
-                    />
-                    <button type="submit" className="w-full bg-accent-gray p-3 hover:bg-accent-dark hover:text-accent-gray">{login_selected ? 'Login' : 'Register'}</button>
-                </form>
+                <AuthForm
+                    onSubmit={handleSubmit}
+                    formData={formData}
+                    setFormData={setFormData}
+                    errors={errors}
+                    login_selected={login_selected}
+                />
             </div>
         </div>
     );

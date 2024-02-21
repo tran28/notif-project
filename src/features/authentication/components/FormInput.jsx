@@ -1,6 +1,6 @@
 function FormInput({ label, type, name, placeholder, value, onChange, error }) {
     return (
-        <div className="mb-5">
+        <div>
             <label htmlFor={name} className="text-sm font-light">{label}</label>
             <input
                 type={type}
