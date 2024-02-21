@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectLogin, selectRegister } from "../../../redux/authSlice";
 import { useState } from "react";
-import useValidateRegisterForm from "../hooks/useValidateRegisterForm";
 import { useNavigate } from 'react-router-dom';
-
+import { loginValidationRules, registerValidationRules } from "../utils/validationRules";
+import useFormValidation from "../hooks/useFormValidation";
+import FormInput from "./FormInput";
 
 function Login({ className }) {
     // Redux states
@@ -11,59 +12,88 @@ function Login({ className }) {
     const register_selected = useSelector(state => state.auth_selection.register_selected);
     const dispatch = useDispatch();
 
-    // UseNavigate for navigating between routes
+    // useNavigate for navigating between routes
     const navigate = useNavigate();
 
-    // UseState for email, password
-    const [password, setPassword] = useState('');
+    // useState for form fields
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-    // Custom hook to validate password submission using register form
-    const { validatePassword, errorMessage } = useValidateRegisterForm();
+    // Custom hook to validate form submission
+    const { validate, errors, resetErrors } = useFormValidation(() => login_selected ? loginValidationRules : registerValidationRules);
 
-    // Handle submit function for both login and register form
+    // Handle form changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    // Handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (register_selected) {
-            if (validatePassword(password)) {
-                navigate('/dashboard');
+        if (validate(formData)) {
+            if(login_selected) {
+
             }
+            else {
+                navigate("/dashboard");
+            }
+        } else {
+            console.log("Error with register or no login found.");
         }
-    }
+    };
+
+    // Reset form state and errors
+    const resetFormAndErrors = () => {
+        setFormData({
+            email: '',
+            password: '',
+        });
+        resetErrors(); // Reset errors function from useFormValidation hook
+    };
+
+    // Handle login or register click
+    const handleAuthClick = (actionType) => {
+        if (actionType === 'login') {
+            dispatch(selectLogin());
+        } else if (actionType === 'register') {
+            dispatch(selectRegister());
+        }
+        resetFormAndErrors();
+    };
 
     return (
         <div className={className}>
             <div className="flex">
-                <div className={`text-md py-2 cursor-pointer ${login_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => dispatch(selectLogin())}>login</div>
+                <div className={`text-md py-2 cursor-pointer ${login_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('login')}>login</div>
                 <div className="text-md py-2 px-1 text-accent-dark">/</div>
-                <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => dispatch(selectRegister())}>register</div>
+                <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('register')}>register</div>
             </div>
             <div className='border-2 p-10 border-accent-gray'>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-5">
-                        <label htmlFor="email" className="text-sm font-light">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                            className="text-sm w-full p-3 bg-accent-aman border-2 border-accent-gray mt-2 focus:border-accent-dark focus:outline-none"
-                            placeholder="name@example.com"
-                        />
-                    </div>
-                    <div className="mb-5">
-                        <label htmlFor="password" className="text-sm font-light">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            required
-                            className="text-sm w-full p-3 bg-accent-aman border-2 border-accent-gray mt-2 focus:border-accent-dark focus:outline-none"
-                            placeholder="••••••••"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        {errorMessage && <div className="text-sm font-light text-error py-1">{errorMessage}</div>}
-                    </div>
+                <form onSubmit={handleSubmit} noValidate>
+                    <FormInput
+                        label="Email"
+                        type="email"
+                        name="email"
+                        placeholder="name@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        error={errors.email}
+                    />
+                    <FormInput
+                        label="Password"
+                        type="password"
+                        name="password"
+                        placeholder="••••••••"
+                        value={formData.password}
+                        onChange={handleChange}
+                        error={errors.password}
+                    />
                     <button type="submit" className="w-full bg-accent-gray p-3 hover:bg-accent-dark hover:text-accent-gray">{login_selected ? 'Login' : 'Register'}</button>
                 </form>
             </div>
