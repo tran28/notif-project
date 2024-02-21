@@ -1,36 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import {Card} from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import ProductsTable from './components/ProductsTable';
-import { fetchProducts } from './api/api';
-import ProductForm from './components/ProductForm';
+import Navbar from "./layouts/Navbar";
+import PageContainer from "./layouts/PageContainer";
+import { MyRoutes } from "./routes/MyRoutes";
 
 function App() {
-  const [products, setProducts] = useState([]);
-
-  const handleProductUpdate = async () => {
-    const updatedProducts = await fetchProducts();
-    setProducts(updatedProducts);
-  };
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const productsData = await fetchProducts();
-      setProducts(productsData);
-    };
-
-    getProducts();
-  }, []);
-
   return (
     <>
-      <Card variation="elevated">
-        <ProductForm handleProductUpdate={handleProductUpdate} />
-      </Card>
+      <Navbar />
 
-      <Card variation="elevated" style={{ marginTop: '1rem' }}>
-        <ProductsTable products={products} handleProductUpdate={handleProductUpdate}/>
-      </Card>
+      <PageContainer>
+        <MyRoutes />
+      </PageContainer>
     </>
   );
 }

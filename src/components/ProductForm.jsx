@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Flex, Label, Alert } from '@aws-amplify/ui-react';
-import { createProduct } from '../api/api';
+import { createProduct } from '../api/dynamoMethods';
 
 function ProductForm({ handleProductUpdate }) {
     const initialProductState = {
@@ -91,7 +91,7 @@ function ProductForm({ handleProductUpdate }) {
                     <TextField name="merchant" placeholder="Merchant" value={product.merchant} onChange={handleInputChange} />
                     <TextField name="price" placeholder="Price" type="number" value={product.price} onChange={handleInputChange} />
                     <TextField name="url" placeholder="URL" type="url" value={product.url} onChange={handleInputChange} />
-                    <Button onClick={handleSubmit} variation="primary" isDisabled={priceErrorAlert || !allFieldsFilled}>Submit</Button>
+                    <Button onClick={handleSubmit} variation="link" isDisabled={priceErrorAlert || !allFieldsFilled}>Submit</Button>
                 </Flex>
             </Flex>
         </>
