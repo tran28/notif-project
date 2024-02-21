@@ -74,7 +74,7 @@ function Login({ className }) {
                 <div className="text-md py-2 px-1 text-accent-dark">/</div>
                 <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('register')}>register</div>
             </div>
-            <div className='border-2 p-10 border-accent-gray'>
+            <div className='border-2 px-4 py-10 border-accent-gray sm:px-8 md:px-10'>
                 <form onSubmit={handleSubmit} noValidate>
                     <FormInput
                         label="Email"
