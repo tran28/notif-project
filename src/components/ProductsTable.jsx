@@ -1,5 +1,5 @@
 import { Label, Button, Flex, Table, TableHead, TableRow, TableCell, TableBody } from '@aws-amplify/ui-react';
-import { deleteProduct } from '../api/api';
+import { deleteProduct } from '../api/dynamoMethods';
 
 function ProductsTable({ products, handleProductUpdate }) {
     const handleDelete = async (productId) => {
@@ -52,7 +52,7 @@ function ProductsTable({ products, handleProductUpdate }) {
                                     {product.url}
                                     <Button
                                         onClick={() => handleDelete(product.product_id)}
-                                        variation="primary"
+                                        variation="link" 
                                         colorTheme="error"
                                         size="small">
                                         Delete
