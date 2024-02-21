@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 function HomePage() {
     const navigate = useNavigate();
 
-    const handleClick = (to) => () => { // Return a function from handleClick
+    const handleClick = (to) => () => {
         switch (to) {
             case 'auth':
                 navigate('/auth');
@@ -12,7 +12,7 @@ function HomePage() {
                 navigate('/dynamo');
                 break;
             default:
-                navigate('/notfound'); // Added leading slash for consistency
+                navigate('/notfound');
         }
     };
 
