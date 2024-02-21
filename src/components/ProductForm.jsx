@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Flex, Label, Alert } from '@aws-amplify/ui-react';
 import { createProduct } from '../api/api';
 
-function ProductForm({ onProductUpdate }) {
+function ProductForm({ handleProductUpdate }) {
     const initialProductState = {
         product_id: '',
         name: '',
@@ -54,7 +54,7 @@ function ProductForm({ onProductUpdate }) {
             setProduct(initialProductState); // Reset form
             setSuccessAlert(true);
             setTimeout(() => setSuccessAlert(false), 5000);
-            onProductUpdate(); // Callback to inform the parent component
+            handleProductUpdate(); // Callback to inform the parent component
         } catch (error) {
             console.error('Error posting data:', error);
         }
