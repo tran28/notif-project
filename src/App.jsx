@@ -25,11 +25,11 @@ function App() {
   return (
     <>
       <Card variation="elevated">
-        <ProductForm onProductUpdate={handleProductUpdate} />
+        <ProductForm handleProductUpdate={handleProductUpdate} />
       </Card>
 
       <Card variation="elevated" style={{ marginTop: '1rem' }}>
-        <ProductsTable products={products} onProductUpdate={handleProductUpdate}/>
+        <ProductsTable products={products} handleProductUpdate={handleProductUpdate}/>
       </Card>
     </>
   );

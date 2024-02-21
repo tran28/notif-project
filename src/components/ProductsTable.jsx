@@ -1,11 +1,11 @@
 import { Label, Button, Flex, Table, TableHead, TableRow, TableCell, TableBody } from '@aws-amplify/ui-react';
 import { deleteProduct } from '../api/api';
 
-function ProductsTable({ products, onProductUpdate }) {
+function ProductsTable({ products, handleProductUpdate }) {
     const handleDelete = async (productId) => {
         try {
             await deleteProduct(productId);
-            onProductUpdate(); // Callback to inform the parent component
+            handleProductUpdate(); // Callback to inform the parent component
         } catch (error) {
             console.error('Error deleting product:', error);
         }
