@@ -8,7 +8,7 @@ import { createClickHandler } from "../../utils/createClickHandler";
 import AuthForm from "../authentication/components/AuthForm";
 import { METHODS } from "../../api/methods.js";
 import { LOGIN_API_URL, REGISTER_API_URL } from "../../api/urls.js";
-import callLambda from '../../services/callLambda.js.js'
+import callLambda from '../../services/callLambda.js'
 
 const initialFormData = {
     email: '',
@@ -39,11 +39,14 @@ function Authentication({ className }) {
         }
 
         try {
-            await callLambda({
+            let response = await callLambda({
                 method: METHODS.POST,
                 url: login_selected ? LOGIN_API_URL : REGISTER_API_URL,
                 body: { email: formData.email, password: formData.password }
             });
+            // Store the token in localStorage
+            localStorage.setItem('userToken', response.data.token);
+
             navigate('/dashboard');
         } catch (error) {
             setAuthError(error.response.data.message);
