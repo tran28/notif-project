@@ -8,13 +8,15 @@ const formFields = [
     { label: "Password", type: "password", name: "password", placeholder: "••••••••" },
 ];
 
-function AuthForm({ onSubmit, formData, setFormData, errors, login_selected }) {
+function AuthForm({ onSubmit, formData, setFormData, errors, login_selected, authError, resetAuthErrors}) {
     const handleChange = (event) => {
+        resetAuthErrors();
         setFormData(currentFormData => updateFormData(currentFormData, event));
     };
 
     return (
         <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
+            {authError && <div className="text-xs font-light text-error">{authError}</div>}
             {formFields.map(field => (
                 <FormInput
                     key={field.name}

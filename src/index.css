@@ -6,5 +6,5 @@
 @tailwind utilities;
 
 body {
-    @apply bg-accent-aman font-robotomono;
+    @apply bg-accent-aman font-robotomono text-accent-dark;
 }

@@ -1,9 +1,9 @@
-import { Login } from "../features/authentication";
+import Authentication from "../features/authentication";
 
 function AuthPage() {
     return (
         <div className="flex justify-center">
-            <Login className="w-full max-w-[600px]" />
+            <Authentication className="w-full max-w-[600px]" />
         </div>
     );
 }
