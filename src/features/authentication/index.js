@@ -6,8 +6,9 @@ import { loginValidationRules, registerValidationRules } from "./utils/validatio
 import useFormValidation from "./hooks/useFormValidation";
 import { createClickHandler } from "../../utils/createClickHandler";
 import AuthForm from "../authentication/components/AuthForm";
-import callLambda from "./services/callRegisterLambda.js";
-import { LOGIN_API_URL, METHODS, REGISTER_API_URL } from "./services/constants.js";
+import { METHODS } from "../../api/methods.js";
+import { LOGIN_API_URL, REGISTER_API_URL } from "../../api/urls.js";
+import callLambda from '../../services/callLambda.js.js'
 
 const initialFormData = {
     email: '',
@@ -31,12 +32,12 @@ function Authentication({ className }) {
     // ================================================
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         // validate the form to ensure all fields are correctly entered
         if (!validate(formData)) {
             return; // stop the function if validation fails
         }
-    
+
         try {
             await callLambda({
                 method: METHODS.POST,
