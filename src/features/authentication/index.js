@@ -9,6 +9,7 @@ import AuthForm from "../authentication/components/AuthForm";
 import { METHODS } from "../../api/methods.js";
 import { LOGIN_API_URL, REGISTER_API_URL } from "../../api/urls.js";
 import callLambda from '../../services/callLambda.js'
+import usePhoneNumberValidation from "./hooks/usePhoneNumberValidation.js";
 
 const initialFormData = {
     email: '',
@@ -25,24 +26,44 @@ function Authentication({ className }) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState(initialFormData);
     const [authError, setAuthError] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneNumberError, setPhoneNumberError] = useState('');
     const { validate, errors, resetErrors } = useFormValidation(() => login_selected ? loginValidationRules : registerValidationRules);
+    const { isValidPhoneNumber, sanitizedPhoneNumber } = usePhoneNumberValidation(phoneNumber);
 
     // ================================================
     // ** Handlers **
     // ================================================
     const handleSubmit = async (e) => {
         e.preventDefault();
+        resetPhoneNumberError();
 
         // validate the form to ensure all fields are correctly entered
         if (!validate(formData)) {
             return; // stop the function if validation fails
         }
 
+        // Prepare the body for the API call
+        let requestBody = {
+            email: formData.email,
+            password: formData.password,
+        };
+
+        // Check phone number validity only if registering
+        if (register_selected) {
+            if (isValidPhoneNumber) {
+                requestBody.phoneNumber = sanitizedPhoneNumber;
+            } else {
+                setPhoneNumberError("Invalid phone number.");
+                return; // Exit early only if registration and phone number is invalid
+            }
+        }
+
         try {
             let response = await callLambda({
                 method: METHODS.POST,
                 url: login_selected ? LOGIN_API_URL : REGISTER_API_URL,
-                body: { email: formData.email, password: formData.password }
+                body: requestBody,
             });
             // Store the token in localStorage
             localStorage.setItem('userToken', response.data.token);
@@ -65,17 +86,26 @@ function Authentication({ className }) {
     };
     const handleAuthClick = createClickHandler(actionMap);
 
+    const handlePhoneNumberChange = (e) => {
+        setPhoneNumber(e.target.value);
+    };
+
     // ================================================
     // ** Helpers **
     // ================================================
     const resetFormAndErrors = () => {
         setFormData(initialFormData);
+        resetPhoneNumberError();
         resetErrors();
         resetAuthErrors();
     };
 
     const resetAuthErrors = () => {
         setAuthError('');
+    }
+
+    const resetPhoneNumberError = () => {
+        setPhoneNumberError('')
     }
 
     return (
@@ -94,6 +124,9 @@ function Authentication({ className }) {
                     login_selected={login_selected}
                     authError={authError}
                     resetAuthErrors={resetAuthErrors}
+                    phoneNumber={phoneNumber}
+                    handlePhoneNumberChange={handlePhoneNumberChange}
+                    phoneNumberError={phoneNumberError}
                 />
             </div>
         </div>

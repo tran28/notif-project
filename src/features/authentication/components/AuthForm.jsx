@@ -1,6 +1,7 @@
 import Button from "../../../components/Button";
 import { updateFormData } from "../../../utils/updateFormData";
 import FormInput from "./FormInput";
+import PhoneInput from "./PhoneInput";
 
 // Configuration for form fields
 const formFields = [
@@ -8,7 +9,7 @@ const formFields = [
     { label: "Password", type: "password", name: "password", placeholder: "••••••••" },
 ];
 
-function AuthForm({ onSubmit, formData, setFormData, errors, login_selected, authError, resetAuthErrors}) {
+function AuthForm({ onSubmit, formData, setFormData, errors, login_selected, authError, resetAuthErrors, phoneNumber, handlePhoneNumberChange, phoneNumberError }) {
     const handleChange = (event) => {
         resetAuthErrors();
         setFormData(currentFormData => updateFormData(currentFormData, event));
@@ -26,6 +27,7 @@ function AuthForm({ onSubmit, formData, setFormData, errors, login_selected, aut
                     error={errors[field.name]}
                 />
             ))}
+            {!login_selected && <PhoneInput phoneNumber={phoneNumber} handlePhoneNumberChange={handlePhoneNumberChange} phoneNumberError={phoneNumberError} />}
             <Button type="submit" className="">
                 {login_selected ? 'Login' : 'Register'}
             </Button>
