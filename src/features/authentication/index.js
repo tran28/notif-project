@@ -95,8 +95,9 @@ function Authentication({ className }) {
     // ================================================
     const resetFormAndErrors = () => {
         setFormData(initialFormData);
-        resetPhoneNumberError();
+        setPhoneNumber('');
         resetErrors();
+        resetPhoneNumberError();
         resetAuthErrors();
     };
 
