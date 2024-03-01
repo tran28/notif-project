@@ -1,7 +1,6 @@
 import Button from "../../../components/Button";
-import { updateFormData } from "../../../utils/updateFormData";
+import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import FormInput from "./FormInput";
-import PhoneInput from "./PhoneInput";
 
 // Configuration for form fields
 const formFields = [
@@ -9,12 +8,19 @@ const formFields = [
     { label: "Password", type: "password", name: "password", placeholder: "••••••••" },
 ];
 
-function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps, phoneProps }) {
+function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
     const handleChange = (event) => {
-        const { name } = event.target;
+        const { name, value } = event.target;
         formProps.resetFieldError(name);
         authErrorProps.resetAuthErrors();
-        formProps.setFormData(currentFormData => updateFormData(currentFormData, event));
+
+        const formattedValue = name === 'phoneNumber' ? formatPhoneNumber(value) : value;
+        formProps.resetFieldError(name);
+        authErrorProps.resetAuthErrors();
+        formProps.setFormData(currentFormData => ({
+            ...currentFormData,
+            [name]: formattedValue
+        }));
     };
 
     return (
@@ -29,7 +35,16 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps, phonePro
                     error={formProps.errors[field.name]}
                 />
             ))}
-            {!loginSelected && <PhoneInput {...phoneProps} />}
+            {!loginSelected && (
+                <FormInput
+                    label="Phone Number"
+                    type="tel"
+                    name="phoneNumber"
+                    value={formProps.formData.phoneNumber}
+                    onChange={handleChange}
+                    error={formProps.errors.phoneNumber}
+                />
+            )}
             <Button type="submit" className="">
                 {loginSelected ? 'Login' : 'Register'}
             </Button>

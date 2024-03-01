@@ -1,3 +1,5 @@
+import { sanitizePhoneNumber } from "./sanitizePhoneNumber";
+
 export const loginValidationRules = {
     email: (value) => {
         if (value.length === 0) return 'Email is required.';
@@ -24,5 +26,10 @@ export const registerValidationRules = {
         if (!/[0-9]/.test(value)) return 'Password must contain at least one number.';
         return '';
     },
-    // Add more rules as necessary
+    phoneNumber: (value) => {
+        const sanitizedValue = sanitizePhoneNumber(value);
+        if (sanitizedValue.length === 0) return 'Phone number is required.';
+        if (sanitizedValue.length !== 12 || !sanitizedValue.startsWith('+1')) return 'Phone number is not valid.';
+        return '';
+    },
 };
