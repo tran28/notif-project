@@ -1,8 +1,9 @@
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 
-function PhoneInput({ phoneNumber, handlePhoneNumberChange, phoneNumberError }) {
+function PhoneInput({ phoneNumber, handlePhoneNumberChange, phoneNumberError, resetPhoneNumberError }) {
     // Handle change event to format the phone number
     const handleChange = (event) => {
+        resetPhoneNumberError();
         // Directly pass the input value without '+1' since the function will append it.
         const formattedValue = formatPhoneNumber(event.target.value);
         handlePhoneNumberChange({ target: { name: event.target.name, value: formattedValue } });

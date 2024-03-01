@@ -10,6 +10,7 @@ import { METHODS } from "../../api/methods.js";
 import { LOGIN_API_URL, REGISTER_API_URL } from "../../api/urls.js";
 import callLambda from '../../services/callLambda.js'
 import usePhoneNumberValidation from "./hooks/usePhoneNumberValidation.js";
+import useLoading from "../../hooks/useLoading.js";
 
 const initialFormData = {
     email: '',
@@ -25,18 +26,24 @@ function Authentication({ className }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState(initialFormData);
+
+    // error state AFTER submitting register/login
     const [authError, setAuthError] = useState('');
+
+    // states for phone number in register
     const [phoneNumber, setPhoneNumber] = useState('');
     const [phoneNumberError, setPhoneNumberError] = useState('');
-    const { validate, errors, resetErrors } = useFormValidation(() => login_selected ? loginValidationRules : registerValidationRules);
+
+    // hooks for error states for form validation, phone number validation, and loading status
+    const { validate, errors, resetErrors, resetFieldError } = useFormValidation(() => login_selected ? loginValidationRules : registerValidationRules);
     const { isValidPhoneNumber, sanitizedPhoneNumber } = usePhoneNumberValidation(phoneNumber);
+    const { isLoading, startLoading, stopLoading } = useLoading();
 
     // ================================================
     // ** Handlers **
     // ================================================
     const handleSubmit = async (e) => {
         e.preventDefault();
-        resetPhoneNumberError();
 
         // validate the form to ensure all fields are correctly entered
         if (!validate(formData)) {
@@ -60,16 +67,19 @@ function Authentication({ className }) {
         }
 
         try {
+            startLoading();
             let response = await callLambda({
                 method: METHODS.POST,
                 url: login_selected ? LOGIN_API_URL : REGISTER_API_URL,
                 body: requestBody,
             });
+            stopLoading();
+
             // Store the token in localStorage
             localStorage.setItem('userToken', response.data.token);
-
             navigate('/dashboard');
         } catch (error) {
+            stopLoading();
             setAuthError(error.response.data.message);
         }
     };
@@ -77,11 +87,11 @@ function Authentication({ className }) {
     const actionMap = {
         'login': () => {
             dispatch(selectLogin());
-            resetFormAndErrors();
+            resetForm();
         },
         'register': () => {
             dispatch(selectRegister());
-            resetFormAndErrors();
+            resetForm();
         },
     };
     const handleAuthClick = createClickHandler(actionMap);
@@ -93,12 +103,15 @@ function Authentication({ className }) {
     // ================================================
     // ** Helpers **
     // ================================================
-    const resetFormAndErrors = () => {
+    const resetForm = () => {
+        // reset input fields
         setFormData(initialFormData);
         setPhoneNumber('');
+
+        // reset errors
         resetErrors();
-        resetPhoneNumberError();
         resetAuthErrors();
+        resetPhoneNumberError();
     };
 
     const resetAuthErrors = () => {
@@ -117,18 +130,28 @@ function Authentication({ className }) {
                 <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('register')}>register</div>
             </div>
             <div className='border-2 px-2 py-6 border-accent-gray sm:px-10 sm:py-10'>
-                <AuthForm
-                    onSubmit={handleSubmit}
-                    formData={formData}
-                    setFormData={setFormData}
-                    errors={errors}
-                    login_selected={login_selected}
-                    authError={authError}
-                    resetAuthErrors={resetAuthErrors}
-                    phoneNumber={phoneNumber}
-                    handlePhoneNumberChange={handlePhoneNumberChange}
-                    phoneNumberError={phoneNumberError}
-                />
+                {isLoading ? 'Submitting...' :
+                    <AuthForm
+                        onSubmit={handleSubmit}
+                        formProps={{
+                            formData: formData,
+                            setFormData: setFormData,
+                            errors: errors,
+                            resetFieldError: resetFieldError
+                        }}
+                        loginSelected={login_selected}
+                        authErrorProps={{
+                            authError: authError,
+                            resetAuthErrors: resetAuthErrors
+                        }}
+                        phoneProps={{
+                            phoneNumber: phoneNumber,
+                            handlePhoneNumberChange: handlePhoneNumberChange,
+                            phoneNumberError: phoneNumberError,
+                            resetPhoneNumberError: resetPhoneNumberError
+                        }}
+                    />
+                }
             </div>
         </div>
     );

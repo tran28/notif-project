@@ -9,31 +9,32 @@ const formFields = [
     { label: "Password", type: "password", name: "password", placeholder: "••••••••" },
 ];
 
-function AuthForm({ onSubmit, formData, setFormData, errors, login_selected, authError, resetAuthErrors, phoneNumber, handlePhoneNumberChange, phoneNumberError }) {
+function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps, phoneProps }) {
     const handleChange = (event) => {
-        resetAuthErrors();
-        setFormData(currentFormData => updateFormData(currentFormData, event));
+        const { name } = event.target;
+        formProps.resetFieldError(name);
+        authErrorProps.resetAuthErrors();
+        formProps.setFormData(currentFormData => updateFormData(currentFormData, event));
     };
 
     return (
         <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
-            {authError && <div className="text-xs font-light text-error">{authError}</div>}
+            {authErrorProps.authError && <div className="text-xs font-light text-error">{authErrorProps.authError}</div>}
             {formFields.map(field => (
                 <FormInput
                     key={field.name}
                     {...field}
-                    value={formData[field.name]}
+                    value={formProps.formData[field.name]}
                     onChange={handleChange}
-                    error={errors[field.name]}
+                    error={formProps.errors[field.name]}
                 />
             ))}
-            {!login_selected && <PhoneInput phoneNumber={phoneNumber} handlePhoneNumberChange={handlePhoneNumberChange} phoneNumberError={phoneNumberError} />}
+            {!loginSelected && <PhoneInput {...phoneProps} />}
             <Button type="submit" className="">
-                {login_selected ? 'Login' : 'Register'}
+                {loginSelected ? 'Login' : 'Register'}
             </Button>
         </form>
     );
 }
 
 export default AuthForm;
-

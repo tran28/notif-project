@@ -2,7 +2,18 @@ import { useState, useCallback } from 'react';
 
 const useFormValidation = (getValidationRules) => {
     const [errors, setErrors] = useState({});
+
+    // Function to reset all errors
     const resetErrors = () => setErrors({});
+
+    // Function to reset the error for a specific field
+    const resetFieldError = useCallback((fieldname) => {
+        setErrors((currentErrors) => {
+            const newErrors = { ...currentErrors };
+            delete newErrors[fieldname]; // Remove the error for the specified field
+            return newErrors;
+        });
+    }, []);
 
     const validate = useCallback((fields) => {
         const rules = getValidationRules();
@@ -20,9 +31,9 @@ const useFormValidation = (getValidationRules) => {
 
         setErrors(validationErrors);
         return Object.keys(validationErrors).length === 0; // Return true if no errors were found, indicating valid input
-    }, [getValidationRules]); // Recreate the validate function only if getValidationRules changes
+    }, [getValidationRules]);
 
-    return { validate, errors, resetErrors };
+    return { validate, errors, resetErrors, resetFieldError };
 }
 
 export default useFormValidation;

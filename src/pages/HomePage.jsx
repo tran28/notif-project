@@ -9,9 +9,6 @@ function HomePage() {
         'auth': () => {
             navigate('/auth');
         },
-        'dynamo': () => {
-            navigate('/dynamo');
-        },
         'dashboard': () => {
             navigate('/dashboard');
         },
@@ -24,7 +21,6 @@ function HomePage() {
             <h1>Home Page/Currently Links to Routes</h1>
             {/* Update onClick to pass a function that will be called on click */}
             <Button onClick={() => handleClick('auth')}>Go to Login/Register</Button>
-            <Button onClick={() => handleClick('dynamo')} >Go to Dynamo Visual</Button>
             <Button onClick={() => handleClick('dashboard')} >Go to Dashboard</Button>
         </div>
     );
