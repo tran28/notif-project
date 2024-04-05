@@ -1,6 +1,7 @@
 import Button from "../../../components/Button";
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import FormInput from "./FormInput";
+import FriendlyCaptcha from "./FriendlyCaptcha";
 
 // Configuration for form fields
 const formFields = [
@@ -23,6 +24,9 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
         }));
     };
 
+    const sitekey = 'FCMQGA04UM0JI03B';
+
+
     return (
         <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
             {authErrorProps.authError && <div className="text-xs font-light text-error">{authErrorProps.authError}</div>}
@@ -44,6 +48,9 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
                     onChange={handleChange}
                     error={formProps.errors.phoneNumber}
                 />
+            )}
+            {!loginSelected && (
+                <FriendlyCaptcha sitekey={sitekey} />
             )}
             <Button type="submit" className="">
                 {loginSelected ? 'Login' : 'Register'}
