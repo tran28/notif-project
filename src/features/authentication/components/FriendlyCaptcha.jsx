@@ -16,9 +16,9 @@ const FriendlyCaptcha = ({ sitekey, setIsCaptchaSolved }) => {
     useEffect(() => {
         if (!widget.current && container.current) {
             widget.current = new WidgetInstance(container.current, {
-                startMode: "focus",
+                startMode: "none",
                 doneCallback,
-                errorCallback
+                errorCallback,
             });
         }
 
@@ -28,7 +28,7 @@ const FriendlyCaptcha = ({ sitekey, setIsCaptchaSolved }) => {
     }, [container, doneCallback, errorCallback]);
 
     return (
-        <div ref={container} className="frc-captcha" data-sitekey={sitekey} />
+        <div ref={container} className="text-sm font-light flex py-2" data-sitekey={sitekey} />
     );
 }
 
