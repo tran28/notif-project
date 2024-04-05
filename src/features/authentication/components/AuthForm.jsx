@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "../../../components/Button";
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import FormInput from "./FormInput";
@@ -25,10 +26,23 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
     };
 
     const sitekey = 'FCMQGA04UM0JI03B';
+    const [isCaptchaSolved, setIsCaptchaSolved] = useState(false);
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // Check if the CAPTCHA is solved; if not, do not proceed with form submission
+        if (!loginSelected && !isCaptchaSolved) {
+            alert('Please solve the CAPTCHA to proceed.');
+            return;
+        }
+
+        onSubmit(event);
+    };
 
 
     return (
-        <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
             {authErrorProps.authError && <div className="text-xs font-light text-error">{authErrorProps.authError}</div>}
             {formFields.map(field => (
                 <FormInput
@@ -50,7 +64,7 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
                 />
             )}
             {!loginSelected && (
-                <FriendlyCaptcha sitekey={sitekey} />
+                <FriendlyCaptcha sitekey={sitekey} setIsCaptchaSolved={setIsCaptchaSolved} />
             )}
             <Button type="submit" className="">
                 {loginSelected ? 'Login' : 'Register'}
