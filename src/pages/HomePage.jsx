@@ -50,7 +50,7 @@ function HomePage() {
                 </motion.div>
                 <motion.div
                     style={{ y: y1 }}
-                    className="bg-accent-mid col-start-2 col-span-7 w-full flex flex-col items-start justify-start absolute z-20 p-8 gap-6 md:p-12 lg:p-16 md:col-start-2 md:col-span-5"
+                    className="bg-accent-mid col-start-2 col-span-8 w-full flex flex-col items-start justify-start absolute z-20 p-8 gap-6 md:p-12 lg:p-16 md:col-start-2 md:col-span-5"
                 >
                     <p className="text-black text-4xl font-extrabold md:text-[56px] lg:text-[72px]">no•tif</p>
                     <div className="flex flex-col gap-1 text-black text-sm md:text-base lg:text-lg">
