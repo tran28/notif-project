@@ -27,13 +27,14 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
 
     const sitekey = 'FCMQGA04UM0JI03B';
     const [isCaptchaSolved, setIsCaptchaSolved] = useState(false);
-    
+    const [captchaError, setCaptchaError] = useState(false);
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // Check if the CAPTCHA is solved; if not, do not proceed with form submission
         if (!loginSelected && !isCaptchaSolved) {
-            alert('Please solve the CAPTCHA to proceed.');
+            setCaptchaError(true);
+            setTimeout(() => setCaptchaError(false), 3000);
             return;
         }
 
@@ -54,18 +55,31 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
                 />
             ))}
             {!loginSelected && (
-                <FormInput
-                    label="Phone Number"
-                    type="tel"
-                    name="phoneNumber"
-                    value={formProps.formData.phoneNumber}
-                    onChange={handleChange}
-                    error={formProps.errors.phoneNumber}
-                />
+                <>
+                    <FormInput
+                        label="Phone Number"
+                        type="tel"
+                        name="phoneNumber"
+                        value={formProps.formData.phoneNumber}
+                        onChange={handleChange}
+                        error={formProps.errors.phoneNumber}
+                    />
+
+                    <div className={`relative rounded-md ${captchaError ? "p-1 border-2 border-accent-dark/50" : ""}`}>
+                        <FriendlyCaptcha sitekey={sitekey} setIsCaptchaSolved={setIsCaptchaSolved} />
+
+                        {captchaError && (
+                            <div className="absolute top-0 right-0 transform -translate-y-1/2 translate-x-1/2"> {/* Dot positioned relative to CAPTCHA */}
+                                <span className="flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-dark opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-accent-dark"></span>
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                </>
             )}
-            {!loginSelected && (
-                <FriendlyCaptcha sitekey={sitekey} setIsCaptchaSolved={setIsCaptchaSolved} />
-            )}
+
             <Button type="submit" className="">
                 {loginSelected ? 'Login' : 'Register'}
             </Button>

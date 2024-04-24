@@ -70,11 +70,11 @@
 
 .frc-button {
     cursor: pointer;
-    text-align: center;
     font-weight: bold;
     text-transform: none;
     color: var(--primary-base);
     text-align: left;
+    display: inline-block;
 }
 
 .frc-button:focus {
