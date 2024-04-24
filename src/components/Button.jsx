@@ -1,13 +1,22 @@
 // Button.js or Button.jsx
+import { colors } from "../styles/colors";
+import { hexToRGB } from "../styles/hexToRGB";
+import { motion } from "framer-motion";
+
 function Button({ onClick, children, className, ...restProps }) {
     return (
-        <button
+        <motion.button
+            whileHover={{
+                backgroundColor: `rgba(${hexToRGB(colors.accent.dark)}, 0.2)`,
+                color: colors.accent.dark,
+                transition: { duration: 0.2 },
+            }}
             onClick={onClick}
-            className={`p-3 bg-accent-dark hover:bg-accent-dark/70 text-accent-light ${className}`}
+            className={`p-3 bg-accent-dark text-accent-light ${className}`}
             {...restProps}
         >
             {children}
-        </button>
+        </motion.button>
     );
 }
 

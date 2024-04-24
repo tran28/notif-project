@@ -3,6 +3,7 @@ import Button from "../../../components/Button";
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import FormInput from "./FormInput";
 import FriendlyCaptcha from "./FriendlyCaptcha";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Configuration for form fields
 const formFields = [
@@ -34,13 +35,28 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
 
         if (!loginSelected && !isCaptchaSolved) {
             setCaptchaError(true);
-            setTimeout(() => setCaptchaError(false), 3000);
+            setTimeout(() => setCaptchaError(false), 1000);
             return;
         }
 
         onSubmit(event);
     };
 
+    const captchaVariants = {
+        initial: {
+            x: 0, // Start at the initial horizontal position
+        },
+        animate: {
+            x: [0, -4, 4, -4, 0], // Move left and right along the x-axis
+            transition: {
+                x: {
+                    repeat: Infinity, // Repeat the wiggle indefinitely
+                    repeatType: "reverse", // Reverse the animation on each iteration
+                    duration: 0.5 // Duration of one complete wiggle cycle
+                }
+            }
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
@@ -65,22 +81,20 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
                         error={formProps.errors.phoneNumber}
                     />
 
-                    <div className={`relative rounded-md ${captchaError ? "p-1 border-2 border-accent-dark/50" : ""}`}>
-                        <FriendlyCaptcha sitekey={sitekey} setIsCaptchaSolved={setIsCaptchaSolved} />
-
-                        {captchaError && (
-                            <div className="absolute top-0 right-0 transform -translate-y-1/2 translate-x-1/2"> {/* Dot positioned relative to CAPTCHA */}
-                                <span className="flex h-3 w-3">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-dark opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-accent-dark"></span>
-                                </span>
-                            </div>
-                        )}
-                    </div>
+                    <AnimatePresence>
+                        <motion.div
+                            className={`relative rounded-md px-2 ${captchaError ? "bg-accent-dark/20" : ""}`}
+                            variants={captchaVariants}
+                            initial="initial"
+                            animate={captchaError ? "animate" : "initial"}
+                        >
+                            <FriendlyCaptcha sitekey={sitekey} setIsCaptchaSolved={setIsCaptchaSolved} />
+                        </motion.div>
+                    </AnimatePresence>
                 </>
             )}
 
-            <Button type="submit" className="">
+            <Button type="submit" onAccentedBackground={true}>
                 {loginSelected ? 'Login' : 'Register'}
             </Button>
         </form>
