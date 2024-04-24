@@ -3,21 +3,26 @@ import { colors } from "../styles/colors";
 import { hexToRGB } from "../styles/hexToRGB";
 import { motion } from "framer-motion";
 
-function Button({ onClick, children, className, ...restProps }) {
+function Button({ onClick, children, className, bgHover, textHover, ...restProps }) {
     return (
         <motion.button
             whileHover={{
-                backgroundColor: `rgba(${hexToRGB(colors.accent.dark)}, 0.2)`,
-                color: colors.accent.dark,
-                transition: { duration: 0.2 },
+                backgroundColor: bgHover,
+                color: textHover,
+                transition: { duration: 0.1 },
             }}
             onClick={onClick}
-            className={`p-3 bg-accent-dark text-accent-light ${className}`}
+            className={`p-3 ${className}`}
             {...restProps}
         >
             {children}
         </motion.button>
     );
 }
+
+Button.defaultProps = {
+    bgHover: `rgba(${hexToRGB(colors.accent.dark)}, 0.2)`,
+    textHover: colors.accent.dark,
+  };
 
 export default Button;

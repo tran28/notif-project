@@ -4,6 +4,7 @@ import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 import FormInput from "./FormInput";
 import FriendlyCaptcha from "./FriendlyCaptcha";
 import { motion, AnimatePresence } from "framer-motion";
+import { colors } from "../../../styles/colors";
 
 // Configuration for form fields
 const formFields = [
@@ -94,7 +95,7 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
                 </>
             )}
 
-            <Button type="submit" onAccentedBackground={true}>
+            <Button type="submit" className="bg-accent-dark text-accent-light" bgHover={colors.accent.light} textHover={colors.accent.dark}>
                 {loginSelected ? 'Login' : 'Register'}
             </Button>
         </form>
