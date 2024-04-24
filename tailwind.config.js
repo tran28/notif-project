@@ -11,9 +11,9 @@ module.exports = {
       'error': '#FF0000',
       'black': '#000000',
       'accent': {
-        light: '#FCFCFC', //'#F3EEE7'
-        mid: '#F3F1EF', //'#E0E0E0'
-        dark: '#B2927D', //'#1D1D1B'
+        light: '#FCFCFC',
+        mid: '#F3F1EF',
+        dark: '#B2927D',
         contrast: '#9BB5CE',
       },
 
