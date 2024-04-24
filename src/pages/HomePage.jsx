@@ -53,7 +53,7 @@ function HomePage() {
                     className="bg-accent-mid col-start-2 col-span-7 w-full flex flex-col items-start justify-start absolute z-20 p-8 gap-6 md:p-12 lg:p-16 md:col-start-2 md:col-span-5"
                 >
                     <p className="text-black text-4xl font-extrabold md:text-[56px] lg:text-[72px]">no•tif</p>
-                    <div className="flex flex-col gap-1 text-black text-xs md:text-base lg:text-lg">
+                    <div className="flex flex-col gap-1 text-black text-sm md:text-base lg:text-lg">
                         <p>Missed the last <span className="text-accent-dark italic">price drop</span>?</p>
                         <p>Be <span className="text-accent-dark italic">notified</span> next time!</p>
                     </div>
