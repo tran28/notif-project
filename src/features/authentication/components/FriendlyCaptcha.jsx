@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { WidgetInstance } from 'friendly-challenge';
+import './../styles/custom-captcha-theme.css';
 
 const FriendlyCaptcha = ({ sitekey, setIsCaptchaSolved }) => {
     const container = useRef();
@@ -11,18 +12,6 @@ const FriendlyCaptcha = ({ sitekey, setIsCaptchaSolved }) => {
 
     const errorCallback = useCallback((err) => {
         console.log('There was an error when trying to solve the Captcha:', err);
-    }, []);
-
-    useEffect(() => {
-        const link = document.createElement('link');
-        link.id = 'frc-style';
-        link.rel = 'stylesheet';
-        link.href = '/custom-captcha-theme.css';
-        document.head.appendChild(link);
-
-        return () => {
-            document.head.removeChild(link);
-        };
     }, []);
 
     useEffect(() => {
