@@ -101,11 +101,11 @@ function Authentication({ className }) {
     return (
         <div className={className}>
             <div className="flex">
-                <div className={`text-md py-2 cursor-pointer ${login_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('login')}>login</div>
+                <div className={`text-md py-2 cursor-pointer ${login_selected ? 'text-accent-dark' : 'text-accent-dark/50'}`} onClick={() => handleAuthClick('login')}>login</div>
                 <div className="text-md py-2 px-1 text-accent-dark">/</div>
-                <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-gray'}`} onClick={() => handleAuthClick('register')}>register</div>
+                <div className={`text-md py-2 cursor-pointer ${register_selected ? 'text-accent-dark' : 'text-accent-dark/50'}`} onClick={() => handleAuthClick('register')}>register</div>
             </div>
-            <div className='border-2 px-4 py-6 border-accent-gray sm:px-10 sm:py-10'>
+            <div className='px-4 py-6 bg-accent-mid sm:px-10 sm:py-10'>
                 {isLoading ? 'Submitting...' :
                     <AuthForm
                         onSubmit={handleSubmit}

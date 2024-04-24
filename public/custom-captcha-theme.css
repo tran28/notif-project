@@ -1,0 +1,120 @@
+:root {
+    --primary-base: #B2927D;
+    --error: #C00;
+    --light-opacity: 0.7;
+    --lighter-opacity: 0.2;
+}
+
+.frc-container {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+}
+
+.frc-icon {
+    fill: var(--primary-base);
+    stroke: var(--primary-base);
+    flex-shrink: 0;
+    margin: 8px 8px 0 8px;
+}
+
+.frc-icon.frc-warning {
+    fill: var(--error);
+}
+
+.frc-success .frc-icon {
+    animation: frc-fade-in 1s both ease-in;
+}
+
+.frc-content {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    margin: 4px 6px 0 0;
+    overflow-x: auto;
+    flex-grow: 1;
+}
+
+.frc-banner * {
+    font-size: 8px;
+    font-weight: lighter;
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+.frc-progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 3px 0;
+    height: 4px;
+    border: none;
+    background-color: rgba(178, 146, 125, 0.2);
+    color: var(--primary-base);
+    width: 100%;
+    max-width: 300px;
+    transition: all 0.5s linear;
+}
+
+.frc-progress::-webkit-progress-bar {
+    background: rgba(178, 146, 125, 0.2);
+}
+
+.frc-progress::-webkit-progress-value {
+    background: var(--primary-base);
+}
+
+.frc-progress::-moz-progress-bar {
+    background: var(--primary-base);
+}
+
+.frc-button {
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    text-transform: none;
+    color: var(--primary-base);
+    text-align: left;
+}
+
+.frc-button:focus {
+    border: 1px solid var(--primary-base);
+}
+
+.frc-button:hover {
+    color: rgba(178, 146, 125, 0.7);
+}
+
+.frc-captcha-solution {
+    display: none;
+}
+
+.frc-err-url {
+    text-decoration: underline;
+    font-size: 0.9em;
+}
+
+/* RTL support */
+
+.frc-rtl {
+    direction: rtl;
+}
+
+.frc-rtl .frc-content {
+    margin: 4px 0 0 6px;
+}
+
+.frc-banner.frc-rtl {
+    left: 6px;
+    right: auto;
+}
+
+@keyframes frc-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

@@ -14,11 +14,24 @@ const FriendlyCaptcha = ({ sitekey, setIsCaptchaSolved }) => {
     }, []);
 
     useEffect(() => {
+        const link = document.createElement('link');
+        link.id = 'frc-style';
+        link.rel = 'stylesheet';
+        link.href = '/custom-captcha-theme.css';
+        document.head.appendChild(link);
+
+        return () => {
+            document.head.removeChild(link);
+        };
+    }, []);
+
+    useEffect(() => {
         if (!widget.current && container.current) {
             widget.current = new WidgetInstance(container.current, {
                 startMode: "none",
                 doneCallback,
                 errorCallback,
+                skipStyleInjection: true,
             });
         }
 
@@ -28,7 +41,7 @@ const FriendlyCaptcha = ({ sitekey, setIsCaptchaSolved }) => {
     }, [container, doneCallback, errorCallback]);
 
     return (
-        <div ref={container} className="text-sm font-light flex py-2" data-sitekey={sitekey} />
+        <div ref={container} className="text-sm font-light" data-sitekey={sitekey} />
     );
 }
 

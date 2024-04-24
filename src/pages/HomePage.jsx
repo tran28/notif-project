@@ -18,7 +18,7 @@ function HomePage() {
 
     return (
         <div className="flex flex-col gap-5">
-            <h1>Home Page/Currently Links to Routes</h1>
+            <h1>Home Page → Currently Links to Routes</h1>
             {/* Update onClick to pass a function that will be called on click */}
             <Button onClick={() => handleClick('auth')}>Go to Login/Register</Button>
             <Button onClick={() => handleClick('dashboard')} >Go to Dashboard</Button>
