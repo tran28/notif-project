@@ -23,8 +23,8 @@ function Home() {
 
     const leftBoxContent = (
         <div className="flex flex-col gap-1 items-start py-4 px-0 md:py-4 md:px-4" >
-            <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('faq')}>&gt; FAQ</Button>
-            <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dev')}>&gt; Dev Corner</Button>
+            <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('faq')}>FAQ</Button>
+            <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dev')}>Dev Corner</Button>
         </div>
     );
 
@@ -42,7 +42,7 @@ function Home() {
     const rightBoxContent = (
         <div className="relative w-full h-full"> {/* Container for image and overlay */}
             <img src="https://notif-assets.s3.amazonaws.com/shopping-cart.webp" className="h-full w-full saturate-100 object-cover" alt="shopping cart"/>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-accent-contrast via-transparent to-transparent md:bg-gradient-to-r"></div> {/* Overlay */}
+            <div className="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-t from-accent-contrast from-5% via-transparent via-5% md:bg-gradient-to-r md:top-0 md:right-1/4 md:h-full md:w-3/4"></div> {/* Overlay */}
         </div>
     );
 
@@ -52,7 +52,7 @@ function Home() {
                 leftBox={leftBoxContent}
                 leftClassName="flex"
                 middleBox={middleBoxContent}
-                middleClassName="flex bg-accent-mid"
+                middleClassName="flex bg-accent-mid shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
                 rightBox={rightBoxContent}
                 rightClassName="flex"
             />
