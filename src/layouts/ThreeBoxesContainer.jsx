@@ -8,9 +8,12 @@ function ThreeBoxesContainer({ leftBox, leftClassName, middleBox, middleClassNam
         offset: ["end start", "end end"],
     });
 
-    const y1 = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
     return (
-        <div className="grid grid-cols-10 overflow-hidden relative h-auto pb-16 md:grid-rows-3 md:h-[90vh] md:pb-0">
+        <motion.div
+            style={{ opacity: opacity }}
+            ref={ref}
+            className="grid grid-cols-10 overflow-hidden relative md:grid-rows-3">
             <motion.div
                 className={`col-span-10 md:col-start-1 md:col-span-3 md:row-start-1 md:row-span-1 z-30 ${leftClassName}`}
             >
@@ -22,13 +25,11 @@ function ThreeBoxesContainer({ leftBox, leftClassName, middleBox, middleClassNam
                 {rightBox}
             </motion.div>
             <motion.div
-                style={{y: y1}}
-                ref={ref}
                 className={`col-span-10 md:col-start-2 md:col-span-5 md:row-start-2 md:row-span-1 z-20 ${middleClassName}`}
             >
                 {middleBox}
             </motion.div>
-        </div>
+        </motion.div>
     );
 }
 
