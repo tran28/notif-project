@@ -95,7 +95,7 @@ function AuthForm({ onSubmit, formProps, loginSelected, authErrorProps }) {
                 </>
             )}
 
-            <Button type="submit" className="bg-accent-dark text-accent-light" bgHover={colors.accent.light} textHover={colors.accent.dark}>
+            <Button type="submit" className="bg-accent-dark text-accent-light" bgHover={colors.black} textHover={colors.accent.light}>
                 {loginSelected ? 'Login' : 'Register'}
             </Button>
         </form>
