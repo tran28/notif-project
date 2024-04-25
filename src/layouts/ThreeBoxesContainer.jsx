@@ -8,9 +8,9 @@ function ThreeBoxesContainer({ leftBox, leftClassName, middleBox, middleClassNam
         offset: ["end start", "end end"],
     });
 
-    const y1 = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+    const y1 = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
     return (
-        <div className="grid grid-cols-10 overflow-hidden relative h-auto md:grid-rows-3 md:h-[90vh]">
+        <div className="grid grid-cols-10 overflow-hidden relative h-auto pb-16 md:grid-rows-3 md:h-[90vh] md:pb-0">
             <motion.div
                 className={`col-span-10 md:col-start-1 md:col-span-3 md:row-start-1 md:row-span-1 z-30 ${leftClassName}`}
             >
