@@ -48,7 +48,7 @@ function Home() {
                 </motion.div>
                 <motion.div
                     style={{ y: y1 }}
-                    className="bg-accent-mid col-start-3 col-span-7 w-full flex flex-col items-start relative z-20 p-8 gap-4 mt-[-40%] lg:p-16 md:col-start-2 md:col-span-5 md:absolute md:mt-0 md:gap-6 lg:gap-8"
+                    className="bg-accent-mid col-start-3 col-span-7 w-full flex flex-col items-start relative z-20 p-8 gap-4 transform !-translate-y-[40%] lg:p-16 md:col-start-2 md:col-span-5 md:absolute md:!translate-y-0"
                 >
                     <p className="text-accent-dark text-4xl font-extrabold md:text-[56px] lg:text-[72px]">no•tif</p>
                     <div className="flex flex-col gap-1 text-black text-xs md:text-sm lg:text-base">
