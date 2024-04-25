@@ -9,7 +9,7 @@ function Navbar() {
     return (
         <>
             <div className="h-24 w-full flex justify-center items-center">
-                <div onClick={handleClick} className="bg-accent-aman text-4xl text-accent-dark font-light cursor-pointer">{siteInfo.name}</div>
+                <div onClick={handleClick} className="text-4xl text-black font-light cursor-pointer">{siteInfo.name}</div>
             </div>
         </>
     );

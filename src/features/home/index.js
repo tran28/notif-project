@@ -49,10 +49,10 @@ function Home() {
                     style={{ y: y1 }}
                     className="bg-accent-mid col-start-1 col-span-10 w-full flex flex-col items-start relative z-20 p-8 gap-4 lg:p-16 md:col-start-2 md:col-span-5 md:absolute"
                 >
-                    <p className="text-accent-dark text-4xl font-extrabold md:text-[48px] lg:text-[64px] lg:pb-2">no•tif</p>
+                    <p className="text-black text-4xl font-light md:text-[48px] lg:text-[64px] lg:pb-2">no•tif</p>
                     <div className="flex flex-col gap-1 text-black text-xs md:text-sm lg:text-base">
-                        <p>Missed the last <span className="text-accent-dark italic font-bold">price drop</span>?</p>
-                        <p>Be <span className="text-accent-dark italic font-bold">notified</span> next time!</p>
+                        <p>Missed the last <span className="text-accent-dark italic font-medium">price drop</span>?</p>
+                        <p>Be <span className="text-accent-dark italic font-medium">notified</span> next time!</p>
                     </div>
                     <Button className="bg-accent-dark text-accent-light" bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('auth')}>Get Started</Button>
                 </motion.div>
