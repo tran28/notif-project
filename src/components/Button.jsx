@@ -11,6 +11,12 @@ function Button({ onClick, children, className, bgHover, textHover, ...restProps
                 color: textHover,
                 transition: { duration: 0.1 },
             }}
+            whileTap={{
+                backgroundColor: bgHover,
+                color: textHover,
+                scale: 1.1,
+                transition: { duration: 0.1 },
+            }}
             onClick={onClick}
             className={`p-3 ${className}`}
             {...restProps}
@@ -23,6 +29,6 @@ function Button({ onClick, children, className, bgHover, textHover, ...restProps
 Button.defaultProps = {
     bgHover: `rgba(${hexToRGB(colors.accent.dark)}, 0.2)`,
     textHover: colors.accent.dark,
-  };
+};
 
 export default Button;
