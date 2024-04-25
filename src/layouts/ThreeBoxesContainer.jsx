@@ -23,9 +23,9 @@ function ThreeBoxesContainer({ leftBox, leftClassName, middleBox, middleClassNam
 
     return (
         <motion.div
-            className="grid grid-cols-10 relative md:grid-rows-3">
+            className="grid grid-cols-10 relative grid-rows-1 md:grid-rows-3">
             <motion.div
-                className={`col-span-10 md:col-start-1 md:col-span-3 md:row-start-1 md:row-span-1 z-30 ${leftClassName}`}
+                className={`col-span-10 md:col-start-1 md:col-span-3 md:row-start-1 md:row-span-3 z-30 ${leftClassName}`}
             >
                 {leftBox}
             </motion.div>
