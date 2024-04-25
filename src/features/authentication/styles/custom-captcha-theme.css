@@ -1,8 +1,6 @@
 :root {
     --primary-base: #B2927D;
     --error: #C00;
-    --light-opacity: 0.7;
-    --lighter-opacity: 0.2;
 }
 
 .frc-container {
@@ -82,7 +80,7 @@
 }
 
 .frc-button:hover {
-    color: rgba(178, 146, 125, 0.7);
+    color: #000000;
 }
 
 .frc-captcha-solution {
