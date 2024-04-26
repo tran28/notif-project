@@ -24,7 +24,7 @@ function useLandingContents() {
     const handleClick = createClickHandler(actionMap);
 
     const leftBoxContent = (
-        <div className="flex flex-row gap-1 items-start mb-4 md:m-8 md:flex-col" >
+        <div className="flex flex-col gap-1 items-start mb-4 md:m-8" >
             <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('faq')}>FAQ</Button>
             <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dev')}>Dev Corner</Button>
         </div>
