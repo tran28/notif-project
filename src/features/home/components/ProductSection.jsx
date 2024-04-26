@@ -32,7 +32,7 @@ function ProductSection() {
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
                 className="fixed top-0 left-0 w-full flex items-center justify-center text-accent-light text-base bg-accent-dark z-50 p-2"
             >
-                <ScrollAlert message='Scroll down' />
+                <ScrollAlert message='Scroll' />
             </motion.div>
             <section ref={targetRef} className="relative h-[300vh]">
                 <div ref={ref} className="sticky top-0 h-screen flex items-center overflow-hidden">
