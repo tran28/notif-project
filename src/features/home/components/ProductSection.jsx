@@ -43,7 +43,7 @@ function ProductSection() {
                         {cards.map((card, index) => {
                             return (
                                 <div key={index}>
-                                    <Card card={card} />
+                                    <Card number={card.number} content={card.content} />
                                 </div>
                             )
                         })}
