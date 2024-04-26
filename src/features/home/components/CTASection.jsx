@@ -4,7 +4,7 @@ function CTASection() {
 
     return (
         <motion.div
-            className="h-screen w-full bg-accent-dark"
+            className="h-screen w-full bg-accent-mid"
         >
         </motion.div>
     );
