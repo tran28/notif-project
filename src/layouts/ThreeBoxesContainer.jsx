@@ -10,7 +10,7 @@ function ThreeBoxesContainer({ leftBox, leftClassName, middleBox, middleClassNam
         offset: ["end start", "end end"],
     });
 
-    const desktopY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
+    const desktopY = useTransform(scrollYProgress, [0, 0.5], [100, -100]);
     const mobileY = useTransform(scrollYProgress, [0, 0.5], [-100, 0]);
     const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
