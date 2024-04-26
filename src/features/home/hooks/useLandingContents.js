@@ -1,0 +1,71 @@
+import { useNavigate } from "react-router-dom";
+import { createClickHandler } from "../../../utils/createClickHandler";
+import Button from "../../../components/Button";
+import { motion } from "framer-motion";
+import { colors } from "../../../styles/colors";
+import { getIcon } from "../../../utils/getIcon";
+
+
+function useLandingContents() {
+    const navigate = useNavigate();
+
+    const actionMap = {
+        'dashboard': () => {
+            navigate('/dashboard');
+        },
+        'faq': () => {
+            navigate('/faq');
+        },
+        'dev': () => {
+            navigate('/dev');
+        },
+    };
+
+    const handleClick = createClickHandler(actionMap);
+
+    const leftBoxContent = (
+        <div className="flex flex-row gap-1 items-start my-4 md:m-8 md:flex-col" >
+            <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('faq')}>FAQ</Button>
+            <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dev')}>Dev Corner</Button>
+        </div>
+    );
+
+    const middleBoxContent = (
+        <div className="flex flex-col items-start justify-center gap-6 p-10">
+            <p className="text-black text-4xl md:text-6xl">no•tif</p>
+            <div className="flex flex-col text-base text-black">
+                <p className="">Missed the last <span className="text-accent-dark italic">price drop</span>?</p>
+                <p className="">Be <span className="text-accent-dark italic">notified</span> next time!</p>
+            </div>
+
+            <Button className="bg-accent-dark text-accent-light text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dashboard')}>Get Started</Button>
+
+            <div className="flex flex-row gap-1 items-center">
+                <motion.div
+                    animate={{
+                        y: ["0", "-10%", "0"]
+                    }}
+                    transition={{
+                        duration: 1,
+                        ease: "easeInOut",
+                        repeat: Infinity,  // Repeat the animation indefinitely
+                        repeatType: "loop"
+                    }}
+                >
+                    {getIcon('mouse', { color: colors.black, size: 24, stroke: 1.2 })}
+                </motion.div>
+                <p className="text-xs text-black tracking-tight italic">Scroll down to learn more</p>
+            </div>
+        </div>
+    );
+
+    const rightBoxContent = (
+        <div className="relative w-full h-full"> {/* Container for image and overlay */}
+            <img src="https://notif-assets.s3.amazonaws.com/shopping-cart.webp" className="h-full w-full saturate-100 object-cover" alt="shopping cart" />
+            <div className="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-t from-accent-mid md:bg-gradient-to-r md:from-accent-light md:top-0 md:right-1/4 md:h-full md:w-3/4"></div> {/* Overlay */}
+        </div>
+    );
+    return { leftBoxContent, middleBoxContent, rightBoxContent };
+}
+
+export default useLandingContents;

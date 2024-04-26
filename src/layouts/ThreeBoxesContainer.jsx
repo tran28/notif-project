@@ -1,23 +1,14 @@
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import useMobileView from "../hooks/useMobileView";
 
 function ThreeBoxesContainer({ leftBox, leftClassName, middleBox, middleClassName, rightBox, rightClassName }) {
     const ref = useRef(null);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const isMobile = useMobileView();
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["end start", "end end"],
     });
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
 
     const y1 = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
     const y2 = useTransform(scrollYProgress, [0, 0.5], [-100, 0]);
