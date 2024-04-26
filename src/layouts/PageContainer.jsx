@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 
 function PageContainer({ children }) {
     const location = useLocation();

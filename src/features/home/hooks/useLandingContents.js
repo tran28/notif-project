@@ -4,6 +4,7 @@ import Button from "../../../components/Button";
 import { motion } from "framer-motion";
 import { colors } from "../../../styles/colors";
 import { getIcon } from "../../../utils/getIcon";
+import { siteInfo } from "../../../data/siteInfo";
 
 
 function useLandingContents() {
@@ -32,7 +33,7 @@ function useLandingContents() {
 
     const middleBoxContent = (
         <div className="flex flex-col items-start justify-center gap-6 p-10">
-            <p className="text-black text-4xl md:text-6xl">no•tif</p>
+            <p className="text-black text-4xl md:text-6xl">{siteInfo.name}</p>
             <div className="flex flex-col text-base text-black">
                 <p className="">Missed the last <span className="text-accent-dark italic">price drop</span>?</p>
                 <p className="">Be <span className="text-accent-dark italic">notified</span> next time!</p>
@@ -61,7 +62,7 @@ function useLandingContents() {
 
     const rightBoxContent = (
         <div className="relative w-full h-full"> {/* Container for image and overlay */}
-            <img src="https://notif-assets.s3.amazonaws.com/shopping-cart.webp" className="h-full w-full saturate-100 object-cover" alt="shopping cart" />
+            <img src="https://notif-assets.s3.amazonaws.com/shopping-cart.webp" className="h-full w-full object-cover object-center" alt="shopping cart" />
             <div className="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-t from-accent-mid md:bg-gradient-to-r md:from-accent-light md:top-0 md:right-1/4 md:h-full md:w-3/4"></div> {/* Overlay */}
         </div>
     );

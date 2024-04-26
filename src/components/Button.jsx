@@ -1,7 +1,7 @@
 // Button.js or Button.jsx
-import { colors } from "../styles/colors";
 import { hexToRGB } from "../styles/hexToRGB";
 import { motion } from "framer-motion";
+import { colors } from "../styles/colors";
 
 function Button({ onClick, children, className, bgHover, textHover, ...restProps }) {
     return (
