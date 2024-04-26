@@ -1,6 +1,7 @@
 import useLandingContents from './hooks/useLandingContents'
 import ThreeBoxesContainer from './../../layouts/ThreeBoxesContainer'
 import ProductSection from './components/ProductSection'
+import CTASection from './components/CTASection';
 
 function Home() {
     const { leftBoxContent, middleBoxContent, rightBoxContent } = useLandingContents();
@@ -18,6 +19,7 @@ function Home() {
                 />
             </div>
             <ProductSection />
+            <CTASection />
         </div>
     );
 }
