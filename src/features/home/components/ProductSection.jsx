@@ -38,7 +38,7 @@ function ProductSection() {
                 <div ref={ref} className="sticky top-0 h-screen flex items-center overflow-hidden">
                     <motion.div
                         style={{ x: x }}
-                        className="flex gap-4 sticky right-0"
+                        className="flex gap-4"
                     >
                         {cards.map((card, index) => {
                             return (

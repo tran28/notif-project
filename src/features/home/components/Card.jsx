@@ -13,7 +13,7 @@ function Card({ content, number }) {
     };
 
     return (
-        <div ref={ref} className="group relative h-[80vw] w-[80vw] md:h-[600px] md:w-[600px] overflow-hidden">
+        <div ref={ref} className="group relative h-[80vw] w-[80vw] md:h-[600px] md:w-[600px]">
             <div className='flex w-full h-full'>
                 <motion.div
                     initial="initial"
