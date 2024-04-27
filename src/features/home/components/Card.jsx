@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { colors } from '../../../styles/colors';
+import useMobileView from "./../../../hooks/useMobileView"
 
 function Card({ content, number }) {
     const ref = useRef(null);
+    const isMobileView = useMobileView();
     const isInView = useInView(ref, { once: false, amount: 0.8 });
 
     // Animation for the number scaling
@@ -13,7 +15,7 @@ function Card({ content, number }) {
     };
 
     return (
-        <div ref={ref} className="group relative h-[80vw] w-[80vw] md:h-[600px] md:w-[600px]">
+        <div ref={ref} className="group relative h-[100vw] w-full md:h-[600px] md:w-[600px]">
             <div className='flex w-full h-full'>
                 <motion.div
                     initial="initial"
@@ -21,7 +23,7 @@ function Card({ content, number }) {
                     variants={numberAnimation}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="text-5xl font-semibold md:text-7xl z-20"
-                    style={{ position: 'absolute', top: '8%', left: '8%' }}
+                    style={{ position: 'absolute', top: isMobileView ? '5%' : '8%', left: isMobileView ? '5%' : '8%' }}
                 >
                     {number}
                 </motion.div>

@@ -12,7 +12,7 @@ function ProductSection() {
     const windowWidth = useWindowWidth();
 
     const ref = useRef(null);
-    const isInView = useInView(ref, { amount: 0.9 });
+    const isInView = useInView(ref, { amount: 0.8 });
 
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
