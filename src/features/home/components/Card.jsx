@@ -20,8 +20,8 @@ function Card({ content, number }) {
                     animate="animate"
                     variants={numberAnimation}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="text-6xl font-semibold z-20 md:text-8xl"
-                    style={{ position: 'absolute', top: '6%', left: '8%' }}
+                    className="text-5xl font-semibold md:text-7xl z-20"
+                    style={{ position: 'absolute', top: '8%', left: '8%' }}
                 >
                     {number}
                 </motion.div>

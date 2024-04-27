@@ -21,7 +21,7 @@ function useCardContents() {
 
     const createCardContent = () => (
         <div className="grid grid-cols-10 grid-rows-10 h-full">
-            <div className=" col-start-2 col-span-9 row-start-2 row-span-9 bg-accent-mid">
+            <div className=" col-start-2 col-span-9 row-start-2 row-span-9 bg-accent-mid rounded-md">
 
             </div>
         </div>
