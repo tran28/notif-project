@@ -8,10 +8,13 @@ function useCardContents() {
                     <h1 className="text-2xl md:text-3xl text-black">What is <span className="text-accent-dark">{siteInfo.name}</span>?</h1>
                     <div className="flex flex-col gap-8">
                         <div className="flex flex-col gap-2">
-                            <p className="text-sm md:text-base text-accent-dark">Imagine.</p>
-                            <p className="text-sm md:text-base text-black">Your favorite product went on <span className="text-accent-dark">sale</span> but by the time you know, it already sold out!</p>
+                            <p className="text-sm md:text-base text-black font-semibold">So this happened.</p>
+                            <p className="text-sm md:text-base text-black">Your favorite product went on <span className="text-accent-dark font-semibold">sale</span>, but by the time you found out, it already sold out.</p>
                         </div>
-                        <p className="text-sm md:text-base text-black">Let us track price drops <span className="text-accent-dark font-semibold">for you</span>.</p>
+                        <div className="flex flex-col gap-2">
+                            <p className="text-sm md:text-base text-black font-semibold">"And on clearance too?!"</p>
+                            <p className="text-sm md:text-base text-black">Set up <span className="text-accent-dark font-semibold">price alerts</span> today.</p>
+                        </div>
                     </div>
                     <p className="text-base md:text-lg text-black self-center font-semibold md:self-end">In few simple steps</p>
                 </div>
