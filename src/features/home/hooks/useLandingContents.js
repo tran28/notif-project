@@ -31,7 +31,7 @@ function useLandingContents() {
     );
 
     const middleBoxContent = (
-        <div className="flex flex-col items-start justify-center gap-6 p-10">
+        <div className="flex flex-col items-start justify-center gap-6 p-10 w-full">
             <p className="text-black text-4xl md:text-6xl">{siteInfo.name}</p>
             <div className="flex flex-col text-base text-black">
                 <p className="">Missed the last <span className="text-accent-dark italic">price drop</span>?</p>

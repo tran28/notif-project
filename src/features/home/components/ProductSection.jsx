@@ -12,20 +12,21 @@ function ProductSection() {
     const windowWidth = useWindowWidth();
 
     const ref = useRef(null);
-    const isInView = useInView(ref, { amount: 0.8 });
+    const isInView = useInView(ref, { amount: 0.9 });
 
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
-    const cardWidth = isMobileView ? 0.8 * windowWidth : 600;
+    const cardWidth = 600;
     const gapWidth = 28;
     const totalWidth = cards.length * cardWidth + (cards.length - 1) * gapWidth;
     const x = useTransform(scrollYProgress, [0, 1], ["1%", `-${totalWidth - windowWidth}px`]);
 
     return (
         <div>
+            {/* Pop up banner when the section is in view to notify user to scroll */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isInView ? 1 : 0 }}
@@ -34,17 +35,17 @@ function ProductSection() {
             >
                 <ScrollAlert message='Scroll' />
             </motion.div>
-            <section ref={targetRef} className="relative h-[300vh]">
-                <div ref={ref} className="sticky top-0 h-screen flex items-center overflow-hidden">
+
+            {/* Main section */}
+            <section ref={targetRef} className="relative md:h-[300vh]">
+                <div ref={ref} className="md:sticky md:top-0 md:h-screen flex items-center overflow-hidden">
                     <motion.div
-                        style={{ x: x }}
-                        className="flex gap-4"
+                        style={{ x: isMobileView ? 0 : x }}
+                        className="flex flex-col gap-4 w-full md:w-auto md:flex-row"
                     >
                         {cards.map((card, index) => {
                             return (
-                                <div key={index}>
-                                    <Card number={card.number} content={card.content} />
-                                </div>
+                                <Card key={index} number={card.number} content={card.content} />
                             )
                         })}
                     </motion.div>
