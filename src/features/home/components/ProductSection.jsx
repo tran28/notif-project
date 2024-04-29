@@ -12,7 +12,7 @@ function ProductSection() {
     const windowWidth = useWindowWidth();
 
     const ref = useRef(null);
-    const isInView = useInView(ref, { amount: 0.8 });
+    const isInView = useInView(ref, { amount: 1 });
     const isChildInPartialView = useInView(ref, { amount: isMobileView ? 0.2 : 0.5, once: true });
 
     const targetRef = useRef(null);
