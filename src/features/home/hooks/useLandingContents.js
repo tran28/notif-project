@@ -4,12 +4,10 @@ import Button from "../../../components/Button";
 import { colors } from "../../../styles/colors";
 import { siteInfo } from "../../../data/siteInfo";
 import ScrollAlert from "../components/ScrollAlert";
-import useMobileView from "../../../hooks/useMobileView";
 
 
 function useLandingContents() {
     const navigate = useNavigate();
-    const isMobileView = useMobileView();
 
     const actionMap = {
         'dashboard': () => {
@@ -48,7 +46,7 @@ function useLandingContents() {
     const rightBoxContent = (
         <div className="relative w-full h-full"> {/* Container for image and overlay */}
             <div>
-                <video className="md:h-full md:max-h-[80vh] h-[50vh] w-full rounded-lg object-cover" autoPlay muted loop controls>
+                <video className="h-[50vh] w-full rounded-lg object-cover md:h-full md:min-h-[60vh] md:max-h-[80vh]" autoPlay muted loop controls>
                     <source src="https://notif-assets.s3.amazonaws.com/video.mp4" type="video/mp4" />
                 </video>
                 <div className="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-t from-black"></div>
