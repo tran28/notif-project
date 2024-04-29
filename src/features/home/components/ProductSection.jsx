@@ -20,7 +20,7 @@ function ProductSection() {
         target: targetRef,
     });
 
-    const cardWidth = 600;
+    const cardWidth = 500;
     const gapWidth = 28;
     const totalWidth = cards.length * cardWidth + (cards.length - 1) * gapWidth;
     const x = useTransform(scrollYProgress, [0, 1], ["1%", `-${totalWidth - windowWidth}px`]);
@@ -54,7 +54,7 @@ function ProductSection() {
 
             {/* Main section */}
             <section ref={targetRef} className="relative md:h-[300vh]">
-                <div ref={ref} className="md:sticky md:top-0 md:h-screen flex items-center overflow-hidden">
+                <div ref={ref} className="md:sticky md:top-[15%] md:h-50vh flex items-center overflow-hidden">
                     <motion.div
                         style={{ x: isMobileView ? 0 : x }}
                         initial="hidden"

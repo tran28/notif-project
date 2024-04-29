@@ -8,16 +8,14 @@ function Home() {
 
     return (
         < div className="flex flex-col gap-10">
-            <div>
-                <ThreeBoxesContainer
-                    leftBox={leftBoxContent}
-                    leftClassName="flex"
-                    middleBox={middleBoxContent}
-                    middleClassName="flex bg-accent-mid"
-                    rightBox={rightBoxContent}
-                    rightClassName="flex"
-                />
-            </div>
+            <ThreeBoxesContainer
+                leftBox={leftBoxContent}
+                leftClassName="flex"
+                middleBox={middleBoxContent}
+                middleClassName="flex bg-accent-mid"
+                rightBox={rightBoxContent}
+                rightClassName="flex"
+            />
             <ProductSection />
             <CTASection />
         </div>

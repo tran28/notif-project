@@ -4,10 +4,12 @@ import Button from "../../../components/Button";
 import { colors } from "../../../styles/colors";
 import { siteInfo } from "../../../data/siteInfo";
 import ScrollAlert from "../components/ScrollAlert";
+import useMobileView from "../../../hooks/useMobileView";
 
 
 function useLandingContents() {
     const navigate = useNavigate();
+    const isMobileView = useMobileView();
 
     const actionMap = {
         'dashboard': () => {
@@ -24,7 +26,7 @@ function useLandingContents() {
     const handleClick = createClickHandler(actionMap);
 
     const leftBoxContent = (
-        <div className="flex flex-col gap-1 items-start mb-4 md:m-8" >
+        <div className="flex gap-1 items-start mb-4">
             <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('faq')}>FAQ</Button>
             <Button className="bg-accent-mid text-accent-dark text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dev')}>Dev Corner</Button>
         </div>
@@ -38,16 +40,20 @@ function useLandingContents() {
                 <p className="">Be <span className="text-accent-dark italic">notified</span> next time!</p>
             </div>
 
-            <Button className="bg-accent-dark text-accent-light text-sm md:text-base " bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dashboard')}>Get Started</Button>
+            <Button className="bg-accent-dark text-accent-light text-sm md:text-base" bgHover={colors.black} textHover={colors.accent.light} onClick={() => handleClick('dashboard')}>Get Started</Button>
             <ScrollAlert message="Scroll down to learn more" />
         </div>
     );
 
     const rightBoxContent = (
         <div className="relative w-full h-full"> {/* Container for image and overlay */}
-            <img src="https://notif-assets.s3.amazonaws.com/shopping-cart.webp" className="h-full w-full object-cover object-center" alt="shopping cart" />
-            <div className="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-t from-accent-mid md:bg-gradient-to-r md:from-accent-light md:top-0 md:right-1/4 md:h-full md:w-3/4"></div> {/* Overlay */}
-            <div className="absolute md:bg-gradient-to-t md:from-accent-light md:top-3/4 md:right-0 md:h-1/4 md:w-full"></div> {/* Overlay */}
+            <div>
+                <video className="md:h-full md:max-h-[80vh] h-[50vh] w-full rounded-lg object-cover" autoPlay muted loop controls>
+                    <source src="https://notif-assets.s3.amazonaws.com/video.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-t from-black"></div>
+                <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black"></div>
+            </div>
         </div>
     );
     return { leftBoxContent, middleBoxContent, rightBoxContent };
