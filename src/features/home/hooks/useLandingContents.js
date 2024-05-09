@@ -56,7 +56,6 @@ function useLandingContents() {
                 <div>
                     <video src="https://notif-assets.s3.amazonaws.com/video.mp4" type="video/mp4" className="w-full object-cover h-full min-h-[60vh] max-h-[70vh]" autoPlay muted loop playsInline />
                     {/* <div className="absolute top-3/4 left-0 w-full h-1/4 bg-gradient-to-t from-accent-mid"></div> */}
-                    {/* <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black"></div> */}
                 </div>
             }
         </div>
