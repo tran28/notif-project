@@ -1,19 +1,5 @@
 import { motion } from 'framer-motion';
-
-const links = [
-    {
-        title: "Get Started"
-    }
-]
-
-const footerLinks = [
-    {
-        title: "FAQ",
-    },
-    {
-        title: "Dev Corner",
-    },
-]
+import { useNavigate } from 'react-router-dom';
 
 export default function MenuLinks() {
     const perspective = {
@@ -41,6 +27,32 @@ export default function MenuLinks() {
         }
     }
 
+    const navigate = useNavigate();
+
+    const links = [
+        {
+            title: "Login",
+            onClick: function () {
+                navigate('/auth');
+            }
+        }
+    ]
+
+    const footerLinks = [
+        {
+            title: "FAQ",
+            onClick: function () {
+                navigate('/faq');
+            }
+        },
+        {
+            title: "Dev Corner",
+            onClick: function () {
+                navigate('/dev');
+            }
+        },
+    ]
+
     return (
         <div className="flex flex-col justify-between px-12 pt-20 pb-10 h-full">
             <div className="flex flex-col gap-3">
@@ -60,6 +72,7 @@ export default function MenuLinks() {
                                     whileHover={{ x: 10, transition: { duration: 0.1 } }}
                                     whileTap={{ scale: 0.9, x: 30, transition: { duration: 0.1 } }}
                                     className="font-semibold italic tracking-tighter text-4xl"
+                                    onClick={link.onClick}
                                 >
                                     {title}
                                 </motion.button>
@@ -86,6 +99,7 @@ export default function MenuLinks() {
                                     whileHover={{ y: -6, transition: { duration: 0.1 } }}
                                     whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
                                     className={`text-lg tracking-tighter font-medium italic`}
+                                    onClick={link.onClick}
                                 >
                                     {title}
                                 </motion.button>
