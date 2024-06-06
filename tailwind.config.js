@@ -8,18 +8,18 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    colors: {
-      'white': colors.white,
-      'error': colors.error,
-      'black': colors.black,
-      'accent': {
-        light: colors.accent.light,
-        mid: colors.accent.mid,
-        dark: colors.accent.dark,
-        contrast: colors.accent.contrast,
-      },
-    },
     extend: {
+      colors: {
+        'white': colors.white,
+        'error': colors.error,
+        'black': colors.black,
+        'accent': {
+          light: colors.accent.light,
+          mid: colors.accent.mid,
+          dark: colors.accent.dark,
+          contrast: colors.accent.contrast,
+        },
+      },
       fontFamily: {
         robotomono: [RobotoMono]
       },

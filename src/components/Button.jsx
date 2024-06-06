@@ -1,5 +1,4 @@
 // Button.js or Button.jsx
-import { hexToRGB } from "../styles/hexToRGB";
 import { motion } from "framer-motion";
 import { colors } from "../styles/colors";
 
@@ -27,8 +26,8 @@ function Button({ onClick, children, className, bgHover, textHover, ...restProps
 }
 
 Button.defaultProps = {
-    bgHover: `rgba(${hexToRGB(colors.accent.dark)}, 0.2)`,
-    textHover: colors.accent.dark,
+    bgHover: colors.black,
+    textHover: colors.white,
 };
 
 export default Button;

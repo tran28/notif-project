@@ -2,7 +2,7 @@ import Home from "../features/home";
 
 function HomePage() {
     return (
-        <div>
+        <div className="relative w-full">
             <Home />
         </div>
     );

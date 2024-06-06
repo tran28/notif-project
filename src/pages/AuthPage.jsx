@@ -1,10 +1,13 @@
 import Authentication from "../features/authentication";
+import PageContainer from "../layouts/PageContainer";
 
 function AuthPage() {
     return (
-        <div className="flex justify-center">
-            <Authentication className="w-full max-w-[600px]" />
-        </div>
+        <PageContainer>
+            <div className="flex w-full justify-center ">
+                <Authentication className="w-full max-w-xl" />
+            </div>
+        </PageContainer>
     );
 }
 
